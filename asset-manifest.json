@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Dimitry-prog/mesto-react/static/css/main.8b2c3939.css",
-    "main.js": "/Dimitry-prog/mesto-react/static/js/main.d031862b.js",
+    "main.js": "/Dimitry-prog/mesto-react/static/js/main.c84f2e56.js",
     "static/media/Inter-Medium.woff2": "/Dimitry-prog/mesto-react/static/media/Inter-Medium.293fd13dbca5a3e450ef.woff2",
     "static/media/Inter-Black.woff2": "/Dimitry-prog/mesto-react/static/media/Inter-Black.15ca31c0a2a68f76d2d1.woff2",
     "static/media/Inter-Regular.woff2": "/Dimitry-prog/mesto-react/static/media/Inter-Regular.c8ba52b05a9ef10f4758.woff2",
@@ -14,10 +14,10 @@
     "static/media/Close.svg": "/Dimitry-prog/mesto-react/static/media/Close.039f1f5203f653b4bacd.svg",
     "static/media/addPost.svg": "/Dimitry-prog/mesto-react/static/media/addPost.bed8c136e13907f5eefb.svg",
     "main.8b2c3939.css.map": "/Dimitry-prog/mesto-react/static/css/main.8b2c3939.css.map",
-    "main.d031862b.js.map": "/Dimitry-prog/mesto-react/static/js/main.d031862b.js.map"
+    "main.c84f2e56.js.map": "/Dimitry-prog/mesto-react/static/js/main.c84f2e56.js.map"
   },
   "entrypoints": [
     "static/css/main.8b2c3939.css",
-    "static/js/main.d031862b.js"
+    "static/js/main.c84f2e56.js"
   ]
 }
