@@ -3,15 +3,10 @@ import deleteIcon from "../images/delete.svg";
 
 const Card = ({link, name, likes, handleCardClick}) => {
 
-  const handleClick = () => {
-    handleCardClick(link, name);
-  }
-
   return (
-    <>
       <li className="elements__item" >
         <div className="card">
-          <img src={link} alt={name} className="card__img" onClick={handleClick}/>
+          <img src={link} alt={name} className="card__img" onClick={handleCardClick}/>
           <img src={deleteIcon} alt="удалить" className="card__delete"/>
           <div className="card__footer">
             <h2 className="card__title">{name}</h2>
@@ -23,7 +18,6 @@ const Card = ({link, name, likes, handleCardClick}) => {
           </div>
         </div>
       </li>
-    </>
   );
 };
 

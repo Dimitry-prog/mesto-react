@@ -15,7 +15,7 @@ const ImagePopup = ({
         >
         </button>
         <figure className="pop-up__fiqure">
-          <img src={selectedCard.src} className="pop-up__picture" alt={selectedCard.name}/>
+          <img src={selectedCard.src} className="pop-up__picture" alt={selectedCard.alt}/>
           <figcaption className="pop-up__text">{selectedCard.alt}</figcaption>
         </figure>
       </div>
