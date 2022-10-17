@@ -19,18 +19,28 @@ const Card = ({link, name, likes, owner, _id}) => {
   const handleToggleLikeClick = () => {
     api.toggleLikeCard(_id, !isMeLikeCard)
       .then(card => {
-        setCards(state => state.map(oldCard => oldCard._id === _id ? card : oldCard))
+        setCards(state => state.map(oldCard => oldCard._id === _id ? card : oldCard));
       })
       .catch(e => {
         console.log(e);
+      });
+  }
+
+  const handleDeleteCardClick = () => {
+    api.deleteCard(_id)
+      .then(card => {
+        setCards(state => state.filter(delCard => delCard._id !== _id));
       })
+      .catch(e => {
+        console.log(e);
+      });
   }
 
   return (
       <li className="elements__item" >
         <div className="card">
           <img src={link} alt={name} className="card__img" onClick={handleImgClick}/>
-          {isMyCard && <img src={deleteIcon} alt="удалить" className="card__delete"/>}
+          {isMyCard && <img onClick={handleDeleteCardClick} src={deleteIcon} alt="удалить" className="card__delete"/>}
           <div className="card__footer">
             <h2 className="card__title">{name}</h2>
             <div className="card__stats">
