@@ -21,10 +21,6 @@ const EditAvatarPopup = ({isOpenPopup, handleClosePopups}) => {
     handleClosePopups();
   }
 
-  useEffect(() => {
-
-  }, [currentUser]);
-
   return (
     <PopupWithForm
       name="avatar"
