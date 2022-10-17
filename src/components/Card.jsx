@@ -1,9 +1,10 @@
 import React from "react";
 import deleteIcon from "../images/delete.svg";
 import {useAppContext} from "../context/AppContext";
+import {api} from "../utils/Api";
 
-const Card = ({link, name, likes, owner}) => {
-  const {currentUser, setSelectedCard, setIsImagePopupOpen} = useAppContext();
+const Card = ({link, name, likes, owner, _id}) => {
+  const {currentUser, setSelectedCard, setIsImagePopupOpen, setCards} = useAppContext();
   const isMyCard = owner._id === currentUser._id;
   const isMeLikeCard = likes.some(me => me._id === currentUser._id);
 
@@ -15,6 +16,16 @@ const Card = ({link, name, likes, owner}) => {
     setIsImagePopupOpen(true);
   }
 
+  const handleToggleLikeClick = () => {
+    api.toggleLikeCard(_id, !isMeLikeCard)
+      .then(card => {
+        setCards(state => state.map(oldCard => oldCard._id === _id ? card : oldCard))
+      })
+      .catch(e => {
+        console.log(e);
+      })
+  }
+
   return (
       <li className="elements__item" >
         <div className="card">
@@ -24,6 +35,7 @@ const Card = ({link, name, likes, owner}) => {
             <h2 className="card__title">{name}</h2>
             <div className="card__stats">
               <button
+                onClick={handleToggleLikeClick}
                 className={`button button_type_like card__like ${isMeLikeCard ? 'card__like_active' : ""}`}
                 type="button"
                 aria-label="CardLike"

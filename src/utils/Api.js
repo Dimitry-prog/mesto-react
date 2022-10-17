@@ -71,6 +71,16 @@ class Api {
       });
   }
 
+  toggleLikeCard(id, method) {
+    return fetch(`${this.url}/cards/${id}/likes`, {
+      method: `${method ? 'PUT' : 'DELETE'}`,
+      headers: this._headers,
+    })
+      .then(res => {
+        return this._getResponseData(res);
+      });
+  }
+
   putLikeCard(id) {
     return fetch(`${this.url}/cards/${id}/likes`, {
       method: 'PUT',

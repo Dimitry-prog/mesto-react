@@ -33,6 +33,7 @@ const AppProvider = ({children}) => {
       value={{
         currentUser,
         cards,
+        setCards,
         selectedCard,
         isImagePopupOpen,
         setSelectedCard,
