@@ -33,13 +33,13 @@ class Api {
     return Promise.all([this.getUsersInfo(), this.getInitCards()])
   }
 
-  patchProfile(data) {
+  patchProfile(name, about) {
     return fetch(this.url + '/users/me', {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        name: data.name,
-        about: data.about
+        name,
+        about
       }),
     })
       .then(res => {

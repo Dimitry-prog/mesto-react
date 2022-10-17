@@ -32,6 +32,7 @@ const AppProvider = ({children}) => {
     <AppContext.Provider
       value={{
         currentUser,
+        setCurrentUser,
         cards,
         setCards,
         selectedCard,

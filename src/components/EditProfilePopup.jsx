@@ -1,15 +1,30 @@
 import React, {useEffect, useState} from "react";
 import PopupWithForm from "./PopupWithForm";
 import {useAppContext} from "../context/AppContext";
+import {api} from "../utils/Api";
 
 const EditProfilePopup = ({isOpenPopup,handleClosePopups }) => {
-  const {currentUser} = useAppContext();
+  const {currentUser, setCurrentUser} = useAppContext();
   const [name, setName] = useState('');
-  const [activity, setActivity] = useState('');
+  const [about, setAbout] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    api.patchProfile(name, about)
+      .then(res => {
+        setCurrentUser(res);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+
+    handleClosePopups();
+  }
 
   useEffect(() => {
     setName(currentUser.name);
-    setActivity(currentUser.about);
+    setAbout(currentUser.about);
   }, [currentUser]);
 
   return (
@@ -19,6 +34,7 @@ const EditProfilePopup = ({isOpenPopup,handleClosePopups }) => {
       isOpenPopup={isOpenPopup}
       handleClosePopups={handleClosePopups}
       submitText="Сохранить"
+      onSubmit={handleSubmit}
     >
       <label className="form__label">
         <input
@@ -36,8 +52,8 @@ const EditProfilePopup = ({isOpenPopup,handleClosePopups }) => {
       </label>
       <label className="form__label">
         <input
-          value={activity}
-          onChange={(e) => setActivity(e.target.value)}
+          value={about}
+          onChange={(e) => setAbout(e.target.value)}
           type="text"
           className="input form__input form__input_type_activity"
           name="about"
