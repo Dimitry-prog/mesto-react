@@ -3,12 +3,8 @@ import {api} from "../utils/Api";
 import Card from "./Card";
 import {useAppContext} from "../context/AppContext";
 
-const Main = ({
-                handleEditAvatarClick,
-                handleAddProfileClick,
-                handleEditProfileClick,
-}) => {
-  const {currentUser, cards} = useAppContext();
+const Main = () => {
+  const {currentUser, cards, handleEditAvatarClick, handleEditProfileClick, handleAddProfileClick} = useAppContext();
 
   return (
     <main className="main page__main">

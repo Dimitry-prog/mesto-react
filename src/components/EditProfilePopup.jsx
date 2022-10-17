@@ -3,8 +3,8 @@ import PopupWithForm from "./PopupWithForm";
 import {useAppContext} from "../context/AppContext";
 import {api} from "../utils/Api";
 
-const EditProfilePopup = ({isOpenPopup,handleClosePopups }) => {
-  const {currentUser, setCurrentUser} = useAppContext();
+const EditProfilePopup = () => {
+  const {currentUser, setCurrentUser, handleClosePopups, isEditProfilePopupOpen} = useAppContext();
   const [name, setName] = useState('');
   const [about, setAbout] = useState('');
 
@@ -31,8 +31,7 @@ const EditProfilePopup = ({isOpenPopup,handleClosePopups }) => {
     <PopupWithForm
       name="profile"
       title="Редактировать профиль"
-      isOpenPopup={isOpenPopup}
-      handleClosePopups={handleClosePopups}
+      isOpenPopup={isEditProfilePopupOpen}
       submitText="Сохранить"
       onSubmit={handleSubmit}
     >

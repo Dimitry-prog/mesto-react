@@ -1,14 +1,15 @@
 import React from "react";
+import {useAppContext} from "../context/AppContext";
 
 const PopupWithForm = ({
-                         name,
-                         title,
-                         isOpenPopup,
-                         handleClosePopups,
-                         submitText,
-                         onSubmit,
-                         children
+  name,
+  title,
+  isOpenPopup,
+  submitText,
+  onSubmit,
+  children
 }) => {
+  const {handleClosePopups} = useAppContext();
 
   return (
     <div className={isOpenPopup ? `pop-up pop-up_${name} pop-up_opened` : `pop-up pop-up_${name}`}>

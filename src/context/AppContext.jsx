@@ -8,6 +8,28 @@ const AppProvider = ({children}) => {
   const [cards, setCards] = useState([]);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+
+  const handleEditAvatarClick = () => {
+    setIsEditAvatarPopupOpen(true);
+  }
+
+  const handleEditProfileClick = () => {
+    setIsEditProfilePopupOpen(true);
+  }
+
+  const handleAddProfileClick = () => {
+    setIsAddPlacePopupOpen(true);
+  }
+
+  const handleClosePopups = () => {
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsImagePopupOpen(false);
+  }
 
   useEffect(() => {
     api.getUsersInfo()
@@ -39,6 +61,13 @@ const AppProvider = ({children}) => {
         isImagePopupOpen,
         setSelectedCard,
         setIsImagePopupOpen,
+        isEditProfilePopupOpen,
+        isAddPlacePopupOpen,
+        isEditAvatarPopupOpen,
+        handleEditAvatarClick,
+        handleAddProfileClick,
+        handleEditProfileClick,
+        handleClosePopups
       }}
     >
       {children}

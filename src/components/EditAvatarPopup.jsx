@@ -3,8 +3,8 @@ import PopupWithForm from "./PopupWithForm";
 import {useAppContext} from "../context/AppContext";
 import {api} from "../utils/Api";
 
-const EditAvatarPopup = ({isOpenPopup, handleClosePopups}) => {
-  const {currentUser, setCurrentUser} = useAppContext();
+const EditAvatarPopup = () => {
+  const {setCurrentUser, handleClosePopups, isEditAvatarPopupOpen} = useAppContext();
   const [avatar, setAvatar] = useState('');
 
   const handleSubmit = (e) => {
@@ -25,8 +25,7 @@ const EditAvatarPopup = ({isOpenPopup, handleClosePopups}) => {
     <PopupWithForm
       name="avatar"
       title="Обновить аватар"
-      isOpenPopup={isOpenPopup}
-      handleClosePopups={handleClosePopups}
+      isOpenPopup={isEditAvatarPopupOpen}
       submitText="Сохранить"
       onSubmit={handleSubmit}
     >

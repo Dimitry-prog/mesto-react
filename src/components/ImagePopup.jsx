@@ -1,8 +1,8 @@
 import React from "react";
 import {useAppContext} from "../context/AppContext";
 
-const ImagePopup = ({handleClosePopups}) => {
-  const {selectedCard, isImagePopupOpen} = useAppContext();
+const ImagePopup = () => {
+  const {selectedCard, isImagePopupOpen, handleClosePopups} = useAppContext();
 
   return (
     <div className={isImagePopupOpen ? `pop-up pop-up_img pop-up_opened` : `pop-up pop-up_img`}>

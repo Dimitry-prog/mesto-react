@@ -3,8 +3,8 @@ import PopupWithForm from "./PopupWithForm";
 import {useAppContext} from "../context/AppContext";
 import {api} from "../utils/Api";
 
-const AddCardPopup = ({isOpenPopup,handleClosePopups}) => {
-  const {cards, setCards} = useAppContext();
+const AddCardPopup = () => {
+  const {cards, setCards, handleClosePopups, isAddPlacePopupOpen} = useAppContext();
   const [place, setPlace] = useState('');
   const [link, setLink] = useState('');
 
@@ -26,8 +26,7 @@ const AddCardPopup = ({isOpenPopup,handleClosePopups}) => {
     <PopupWithForm
       name="card"
       title="Новое место"
-      isOpenPopup={isOpenPopup}
-      handleClosePopups={handleClosePopups}
+      isOpenPopup={isAddPlacePopupOpen}
       submitText="Создать"
       onSubmit={handleSubmit}
     >
