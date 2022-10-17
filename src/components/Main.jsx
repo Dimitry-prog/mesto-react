@@ -9,7 +9,6 @@ const Main = ({
                 handleEditProfileClick,
 }) => {
   const {currentUser, cards} = useAppContext();
-  console.log(currentUser);
 
   return (
     <main className="main page__main">

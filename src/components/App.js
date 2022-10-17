@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import {useAppContext} from "../context/AppContext";
+import EditProfilePopup from "./EditProfilePopup";
 
 function App() {
   const {setIsImagePopupOpen} = useAppContext();
@@ -60,25 +61,7 @@ function App() {
         </label>
       </PopupWithForm>
 
-      <PopupWithForm
-        name="profile"
-        title="Редактировать профиль"
-        isOpenPopup={isEditProfilePopupOpen}
-        handleClosePopups={handleClosePopups}
-        submitText="Сохранить"
-      >
-        <label className="form__label">
-          <input type="text" className="input form__input form__input_type_name" name="name" required id="name"
-                 minLength="2" maxLength="40" placeholder="Enter name"/>
-          <span className="form__error-message name-error"></span>
-        </label>
-        <label className="form__label">
-          <input type="text" className="input form__input form__input_type_activity" name="about" required
-                 id="about"
-                 placeholder="Enter activity" minLength="2" maxLength="200"/>
-          <span className="form__error-message about-error"></span>
-        </label>
-      </PopupWithForm>
+      <EditProfilePopup isOpenPopup={isEditProfilePopupOpen} handleClosePopups={handleClosePopups}/>
 
       <PopupWithForm
         name="card"
