@@ -7,20 +7,9 @@ const Main = ({
                 handleEditAvatarClick,
                 handleAddProfileClick,
                 handleEditProfileClick,
-                handleImgClick
 }) => {
-  const {currentUser} = useAppContext();
+  const {currentUser, cards} = useAppContext();
   console.log(currentUser);
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-
-    api.getInitCards()
-      .then(res => {
-        console.log(res);
-        setCards(res);
-      })
-  }, []);
 
   return (
     <main className="main page__main">
@@ -58,7 +47,6 @@ const Main = ({
               <Card
                 {...card}
                 key={card._id}
-                handleImgClick={() => handleImgClick(card.name, card.link)}
               />
             ))}
           </ul>

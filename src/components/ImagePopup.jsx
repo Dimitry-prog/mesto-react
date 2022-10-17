@@ -1,13 +1,11 @@
 import React from "react";
+import {useAppContext} from "../context/AppContext";
 
-const ImagePopup = ({
-                      selectedCard,
-                      handleClosePopups,
-                      isOpenPopup
-}) => {
+const ImagePopup = ({handleClosePopups}) => {
+  const {selectedCard, isImagePopupOpen} = useAppContext();
 
   return (
-    <div className={isOpenPopup ? `pop-up pop-up_img pop-up_opened` : `pop-up pop-up_img`}>
+    <div className={isImagePopupOpen ? `pop-up pop-up_img pop-up_opened` : `pop-up pop-up_img`}>
       <div className="pop-up__overlay pop-up__overlay_type_img">
         <button
           onClick={handleClosePopups}

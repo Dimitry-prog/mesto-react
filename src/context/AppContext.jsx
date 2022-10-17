@@ -5,6 +5,9 @@ const AppContext = createContext();
 
 const AppProvider = ({children}) => {
   const [currentUser, setCurrentUser] = useState({});
+  const [cards, setCards] = useState([]);
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({});
 
   useEffect(() => {
     api.getUsersInfo()
@@ -13,13 +16,27 @@ const AppProvider = ({children}) => {
       })
       .catch(e => {
         console.log(e);
+      });
+
+    api.getInitCards()
+      .then(res => {
+        console.log(res);
+        setCards(res);
       })
+      .catch(e => {
+        console.log(e);
+      });
   }, []);
 
   return (
     <AppContext.Provider
       value={{
-        currentUser
+        currentUser,
+        cards,
+        selectedCard,
+        isImagePopupOpen,
+        setSelectedCard,
+        setIsImagePopupOpen,
       }}
     >
       {children}
