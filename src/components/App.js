@@ -7,6 +7,7 @@ import ImagePopup from "./ImagePopup";
 import {useAppContext} from "../context/AppContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
+import AddCardPopup from "./AddCardPopup";
 
 function App() {
   const {setIsImagePopupOpen} = useAppContext();
@@ -44,33 +45,15 @@ function App() {
       />
       <Footer/>
 
-        <ImagePopup
+      <ImagePopup
         handleClosePopups={handleClosePopups}
-        />
+      />
 
       <EditAvatarPopup isOpenPopup={isEditAvatarPopupOpen} handleClosePopups={handleClosePopups}/>
 
       <EditProfilePopup isOpenPopup={isEditProfilePopupOpen} handleClosePopups={handleClosePopups}/>
 
-      <PopupWithForm
-        name="card"
-        title="Новое место"
-        isOpenPopup={isAddPlacePopupOpen}
-        handleClosePopups={handleClosePopups}
-        submitText="Создать"
-      >
-        <label className="form__label">
-          <input type="text" className="input form__input form__input_type_place" name="place" placeholder="Название"
-                 required id="place" minLength="2" maxLength="30"/>
-          <span className="form__error-message place-error"></span>
-        </label>
-        <label className="form__label">
-          <input type="url" className="input form__input form__input_type_link" name="link"
-                 placeholder="Ссылка на картинку"
-                 required id="link"/>
-          <span className="form__error-message link-error"></span>
-        </label>
-      </PopupWithForm>
+      <AddCardPopup isOpenPopup={isAddPlacePopupOpen} handleClosePopups={handleClosePopups}/>
 
     </div>
   );

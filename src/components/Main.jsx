@@ -18,7 +18,7 @@ const Main = ({
       <div className="content">
         <section className="profile main__profile">
           <div className="profile__avatar">
-            <img src={currentUser.avatar} alt="Жак-Ив Кусто" className="profile__img"/>
+            <img src={currentUser.avatar} alt="avatar" className="profile__img"/>
               <button
                 onClick={handleEditAvatarClick}
                 className="button  button_type_avatar" type="button" aria-label="editAvatar"
