@@ -8,7 +8,7 @@ const Card = ({link, name, likes, owner, _id}) => {
   const isMyCard = owner._id === currentUser._id;
   const isMeLikeCard = likes.some(me => me._id === currentUser._id);
 
-   const handleImgClick = (name, link) => {
+   const handleImgClick = () => {
     setSelectedCard({
       src: link,
       alt: name
@@ -29,7 +29,7 @@ const Card = ({link, name, likes, owner, _id}) => {
   return (
       <li className="elements__item" >
         <div className="card">
-          <img src={link} alt={name} className="card__img" onClick={() => handleImgClick(name, link)}/>
+          <img src={link} alt={name} className="card__img" onClick={handleImgClick}/>
           {isMyCard && <img src={deleteIcon} alt="удалить" className="card__delete"/>}
           <div className="card__footer">
             <h2 className="card__title">{name}</h2>
