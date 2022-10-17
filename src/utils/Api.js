@@ -101,12 +101,12 @@ class Api {
       });
   }
 
-  patchAvatar(linkAvatar) {
+  patchAvatar(avatar) {
     return fetch(this.url + '/users/me/avatar', {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: linkAvatar
+        avatar
       }),
     })
       .then(res => {

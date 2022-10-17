@@ -6,6 +6,7 @@ import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import {useAppContext} from "../context/AppContext";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 
 function App() {
   const {setIsImagePopupOpen} = useAppContext();
@@ -47,19 +48,7 @@ function App() {
         handleClosePopups={handleClosePopups}
         />
 
-      <PopupWithForm
-        name="avatar"
-        title="Обновить аватар"
-        isOpenPopup={isEditAvatarPopupOpen}
-        handleClosePopups={handleClosePopups}
-        submitText="Сохранить"
-      >
-        <label className="form__label">
-          <input type="url" className="input form__input form__input_type_avatar" name="avatar" required id="avatar"
-                 placeholder="Ссылка на картинку"/>
-          <span className="form__error-message avatar-error"></span>
-        </label>
-      </PopupWithForm>
+      <EditAvatarPopup isOpenPopup={isEditAvatarPopupOpen} handleClosePopups={handleClosePopups}/>
 
       <EditProfilePopup isOpenPopup={isEditProfilePopupOpen} handleClosePopups={handleClosePopups}/>
 
