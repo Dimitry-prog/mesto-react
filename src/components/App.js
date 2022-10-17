@@ -12,7 +12,6 @@ function App() {
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
 
-
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
   }
@@ -33,7 +32,7 @@ function App() {
     setIsImagePopupOpen(false);
   }
 
-  const handleCardClick = (name, link) => {
+  const handleImgClick = (name, link) => {
     setSelectedCard({
       src: link,
       alt: name
@@ -49,7 +48,7 @@ function App() {
         handleEditAvatarClick={handleEditAvatarClick}
         handleEditProfileClick={handleEditProfileClick}
         handleAddProfileClick={handleAddProfileClick}
-        handleCardClick={handleCardClick}
+        handleImgClick={handleImgClick}
       />
       <Footer/>
 

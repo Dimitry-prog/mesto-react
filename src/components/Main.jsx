@@ -1,28 +1,19 @@
 import React, {useEffect, useState} from "react";
 import {api} from "../utils/Api";
 import Card from "./Card";
+import {useAppContext} from "../context/AppContext";
 
 const Main = ({
                 handleEditAvatarClick,
                 handleAddProfileClick,
                 handleEditProfileClick,
-                handleCardClick
+                handleImgClick
 }) => {
-  const [userName, setUserName] = useState(null);
-  const [userActivity , setActivity] = useState(null);
-  const [userAvatar, setUserAvatar] = useState(null);
+  const {currentUser} = useAppContext();
+  console.log(currentUser);
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    api.getUsersInfo()
-      .then(res => {
-        setUserName(res.name);
-        setActivity(res.about);
-        setUserAvatar(res.avatar);
-      })
-      .catch(e => {
-        console.log(e);
-      });
 
     api.getInitCards()
       .then(res => {
@@ -39,7 +30,7 @@ const Main = ({
       <div className="content">
         <section className="profile main__profile">
           <div className="profile__avatar">
-            <img src={userAvatar} alt="Жак-Ив Кусто" className="profile__img"/>
+            <img src={currentUser.avatar} alt="Жак-Ив Кусто" className="profile__img"/>
               <button
                 onClick={handleEditAvatarClick}
                 className="button  button_type_avatar" type="button" aria-label="editAvatar"
@@ -47,13 +38,13 @@ const Main = ({
               </button>
           </div>
           <div className="profile__info">
-            <h1 className="profile__name">{userName}</h1>
+            <h1 className="profile__name">{currentUser.name}</h1>
             <button
               onClick={handleEditProfileClick}
               className="button profile__edit button_type_edit" type="button" aria-label="EditProfile"
             >
             </button>
-            <p className="profile__activity">{userActivity}</p>
+            <p className="profile__activity">{currentUser.about}</p>
           </div>
           <button
             onClick={handleAddProfileClick}
@@ -67,7 +58,7 @@ const Main = ({
               <Card
                 {...card}
                 key={card._id}
-                handleCardClick={() => handleCardClick(card.name, card.link)}
+                handleImgClick={() => handleImgClick(card.name, card.link)}
               />
             ))}
           </ul>
