@@ -4,7 +4,7 @@ import {useAppContext} from "../context/AppContext";
 import {api} from "../utils/Api";
 
 const Card = ({link, name, likes, owner, _id}) => {
-  const {currentUser, setSelectedCard, setIsImagePopupOpen, setCards} = useAppContext();
+  const {currentUser, setSelectedCard, setIsImagePopupOpen, setCards, handleDeleteCardClick} = useAppContext();
   const isMyCard = owner._id === currentUser._id;
   const isMeLikeCard = likes.some(me => me._id === currentUser._id);
 
@@ -20,16 +20,6 @@ const Card = ({link, name, likes, owner, _id}) => {
     api.toggleLikeCard(_id, !isMeLikeCard)
       .then(card => {
         setCards(state => state.map(oldCard => oldCard._id === _id ? card : oldCard));
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }
-
-  const handleDeleteCardClick = () => {
-    api.deleteCard(_id)
-      .then(card => {
-        setCards(state => state.filter(delCard => delCard._id !== _id));
       })
       .catch(e => {
         console.log(e);

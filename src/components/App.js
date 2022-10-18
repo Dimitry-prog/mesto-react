@@ -5,6 +5,7 @@ import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddCardPopup from "./AddCardPopup";
+import ConfirmDeleteCardPopup from "./ConfirmDeleteCardPopup";
 
 function App() {
 
@@ -18,7 +19,7 @@ function App() {
       <EditAvatarPopup/>
       <EditProfilePopup/>
       <AddCardPopup />
-
+      <ConfirmDeleteCardPopup/>
     </div>
   );
 }
