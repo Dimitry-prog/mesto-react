@@ -1,17 +1,17 @@
-import React, { useState} from "react";
+import React, {useRef, useState} from "react";
 import PopupWithForm from "./PopupWithForm";
 import {useAppContext} from "../context/AppContext";
 import {api} from "../utils/Api";
 
 const EditAvatarPopup = () => {
   const {setCurrentUser, handleClosePopups, isEditAvatarPopupOpen} = useAppContext();
-  const [avatar, setAvatar] = useState('');
+  const inputRef = useRef('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    api.patchAvatar(avatar)
+    api.patchAvatar(inputRef.current.value)
       .then(res => {
         setCurrentUser(res);
       })
@@ -33,8 +33,7 @@ const EditAvatarPopup = () => {
     >
       <label className="form__label">
         <input
-          value={avatar}
-          onChange={(e)=> setAvatar(e.target.value)}
+          ref={inputRef}
           type="url"
           className="input form__input form__input_type_avatar"
           name="avatar"
