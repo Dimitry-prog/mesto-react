@@ -4,7 +4,7 @@ import {useAppContext} from "../context/AppContext";
 import {api} from "../utils/Api";
 
 const Card = ({link, name, likes, owner, _id}) => {
-  const {currentUser, setSelectedCard, setIsImagePopupOpen, setCards, handleDeleteCardClick} = useAppContext();
+  const {currentUser, selectedCard, setSelectedCard, setIsImagePopupOpen, setCards, handleDeleteCardClick} = useAppContext();
   const isMyCard = owner._id === currentUser._id;
   const isMeLikeCard = likes.some(me => me._id === currentUser._id);
 
@@ -14,6 +14,11 @@ const Card = ({link, name, likes, owner, _id}) => {
       alt: name
     });
     setIsImagePopupOpen(true);
+  }
+
+  const handleDeleteIconClick = () => {
+    setSelectedCard({...selectedCard, id: _id});
+    handleDeleteCardClick();
   }
 
   const handleToggleLikeClick = () => {
@@ -30,7 +35,7 @@ const Card = ({link, name, likes, owner, _id}) => {
       <li className="elements__item" >
         <div className="card">
           <img src={link} alt={name} className="card__img" onClick={handleImgClick}/>
-          {isMyCard && <img onClick={handleDeleteCardClick} src={deleteIcon} alt="удалить" className="card__delete"/>}
+          {isMyCard && <img onClick={handleDeleteIconClick} src={deleteIcon} alt="удалить" className="card__delete"/>}
           <div className="card__footer">
             <h2 className="card__title">{name}</h2>
             <div className="card__stats">
