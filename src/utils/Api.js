@@ -29,6 +29,10 @@ class Api {
       });
   }
 
+  getInitialAppState() {
+    return Promise.all([this.getUsersInfo(), this.getInitCards()])
+  }
+
   patchProfile(name, about) {
     return fetch(this.url + '/users/me', {
       method: 'PATCH',

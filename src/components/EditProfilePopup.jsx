@@ -7,17 +7,19 @@ const EditProfilePopup = () => {
   const {currentUser, setCurrentUser, handleClosePopups, isEditProfilePopupOpen} = useAppContext();
   const [name, setName] = useState('');
   const [about, setAbout] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     api.patchProfile(name, about)
       .then(res => {
         setCurrentUser(res);
       })
       .catch(e => {
         console.log(e);
-      });
+      })
+      .finally(() => setIsLoading(false));
 
     handleClosePopups();
   }
@@ -32,7 +34,7 @@ const EditProfilePopup = () => {
       name="profile"
       title="Редактировать профиль"
       isOpenPopup={isEditProfilePopupOpen}
-      submitText="Сохранить"
+      submitText={isLoading ? "Сохрание..." : "Сохранить"}
       onSubmit={handleSubmit}
     >
       <label className="form__label">

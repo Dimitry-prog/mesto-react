@@ -1,16 +1,17 @@
-import React, {useEffect, useState} from "react";
-import {api} from "../utils/Api";
+import React from "react";
 import Card from "./Card";
 import {useAppContext} from "../context/AppContext";
+import Loader from "./Loader";
 
 const Main = () => {
-  const {currentUser, cards, handleEditAvatarClick, handleEditProfileClick, handleAddProfileClick} = useAppContext();
+  const {currentUser, cards, handleEditAvatarClick, handleEditProfileClick, handleAddProfileClick, isLoading} = useAppContext();
+
+  if (isLoading) {
+    return <Loader/>
+  }
 
   return (
     <main className="main page__main">
-      <div className="loader">
-        <div className="loader__content"></div>
-      </div>
       <div className="content">
         <section className="profile main__profile">
           <div className="profile__avatar">

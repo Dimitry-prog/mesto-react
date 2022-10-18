@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useState} from "react";
 import PopupWithForm from "./PopupWithForm";
 import {useAppContext} from "../context/AppContext";
 import {api} from "../utils/Api";
@@ -7,17 +7,19 @@ const AddCardPopup = () => {
   const {cards, setCards, handleClosePopups, isAddPlacePopupOpen} = useAppContext();
   const [place, setPlace] = useState('');
   const [link, setLink] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     api.postNewCard(place, link)
       .then(newCard => {
         setCards([newCard, ...cards]);
       })
       .catch(e => {
         console.log(e);
-      });
+      })
+      .finally(() => setIsLoading(false));
 
     handleClosePopups();
   }
@@ -27,7 +29,7 @@ const AddCardPopup = () => {
       name="card"
       title="Новое место"
       isOpenPopup={isAddPlacePopupOpen}
-      submitText="Создать"
+      submitText={isLoading ? "Сохрание..." : "Создать"}
       onSubmit={handleSubmit}
     >
       <label className="form__label">

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useState} from "react";
 import PopupWithForm from "./PopupWithForm";
 import {useAppContext} from "../context/AppContext";
 import {api} from "../utils/Api";
@@ -6,17 +6,19 @@ import {api} from "../utils/Api";
 const EditAvatarPopup = () => {
   const {setCurrentUser, handleClosePopups, isEditAvatarPopupOpen} = useAppContext();
   const [avatar, setAvatar] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     api.patchAvatar(avatar)
       .then(res => {
         setCurrentUser(res);
       })
       .catch(e => {
         console.log(e);
-      });
+      })
+      .finally(() => setIsLoading(false));
 
     handleClosePopups();
   }
@@ -26,7 +28,7 @@ const EditAvatarPopup = () => {
       name="avatar"
       title="Обновить аватар"
       isOpenPopup={isEditAvatarPopupOpen}
-      submitText="Сохранить"
+      submitText={isLoading ? "Сохрание..." : "Сохранить"}
       onSubmit={handleSubmit}
     >
       <label className="form__label">

@@ -11,6 +11,7 @@ const AppProvider = ({children}) => {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
@@ -32,22 +33,17 @@ const AppProvider = ({children}) => {
   }
 
   useEffect(() => {
-    api.getUsersInfo()
+    setIsLoading(true);
+    api.getInitialAppState()
       .then(res => {
-        setCurrentUser(res);
+        const [userInfo, initCards] = res;
+        setCurrentUser(userInfo);
+        setCards(initCards);
       })
       .catch(e => {
         console.log(e);
-      });
-
-    api.getInitCards()
-      .then(res => {
-        console.log(res);
-        setCards(res);
       })
-      .catch(e => {
-        console.log(e);
-      });
+      .finally(() => setIsLoading(false));
   }, []);
 
   return (
@@ -67,7 +63,9 @@ const AppProvider = ({children}) => {
         handleEditAvatarClick,
         handleAddProfileClick,
         handleEditProfileClick,
-        handleClosePopups
+        handleClosePopups,
+        isLoading,
+        setIsLoading
       }}
     >
       {children}
