@@ -27,11 +27,12 @@ const EditAvatarPopup = () => {
 
   const validation = (inputValue) => {
     const errorMessage = {};
-    if (!inputValue.startsWith('https://')) {
-      errorMessage.avatar = 'Введите ссылку';
-    } else if (!inputValue.length) {
+    if (!inputValue.length) {
       errorMessage.avatar = 'Поле не может быть пустым';
+    } else if (!inputValue.startsWith('https://')) {
+      errorMessage.avatar = 'Введите ссылку';
     }
+
     return errorMessage;
   }
 
