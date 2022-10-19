@@ -7,6 +7,7 @@ const PopupWithForm = ({
   isOpenPopup,
   submitText,
   onSubmit,
+  isValidForm,
   children
 }) => {
   const {handleClosePopups} = useAppContext();
@@ -22,7 +23,7 @@ const PopupWithForm = ({
         <form onSubmit={onSubmit} className="form form_type_profile pop-up__form" name={`pop-up-form-${name}`} noValidate>
           <h3 className="form__title">{title}</h3>
           {children}
-          <button type="submit" className="button button_type_submit">{submitText}</button>
+          <button type="submit" disabled={!isValidForm} className={`button button_type_submit ${!isValidForm ? "button_disabled " : ""}`}>{submitText}</button>
         </form>
       </div>
     </div>

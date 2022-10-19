@@ -74,7 +74,7 @@ const AppProvider = ({children}) => {
         handleDeleteCardClick,
         handleClosePopups,
         isLoading,
-        setIsLoading
+        setIsLoading,
       }}
     >
       {children}
