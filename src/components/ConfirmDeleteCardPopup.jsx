@@ -14,25 +14,23 @@ const ConfirmDeleteCardPopup = () => {
     api.deleteCard(selectedCard.id)
       .then(card => {
         setCards(state => state.filter(delCard => delCard._id !== selectedCard.id));
+        handleClosePopups();
       })
       .catch(e => {
         console.log(e);
       })
       .finally(() => setIsLoading(false));
-
-    handleClosePopups();
   }
 
   return (
-    <>
-      <PopupWithForm
-        name='delete'
-        title='Вы уверены?'
-        isOpenPopup={isDeleteCardPopupOpen}
-        submitText={isLoading ? "Удаление..." : "Да"}
-        onSubmit={handleSubmit}
-      ></PopupWithForm>
-    </>
+    <PopupWithForm
+      name="delete"
+      title="Вы уверены?"
+      isOpenPopup={isDeleteCardPopupOpen}
+      submitText={isLoading ? "Удаление..." : "Да"}
+      onSubmit={handleSubmit}
+      isValidForm={true}
+    />
   );
 };
 
