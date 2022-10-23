@@ -6,7 +6,7 @@ import useFormValidation from "../hooks/useFormValidation";
 
 const EditProfilePopup = () => {
   const {currentUser, setCurrentUser, handleClosePopups, isEditProfilePopupOpen} = useAppContext();
-  const {values, errors, isValid, setIsValid, setValues, handleChange} = useFormValidation();
+  const {values, errors, isValid, setValues, setIsValid, handleChange} = useFormValidation();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e) => {
@@ -25,21 +25,12 @@ const EditProfilePopup = () => {
   }
 
   useEffect(() => {
+    setIsValid(true);
     setValues({
       name: currentUser.name,
       about: currentUser.about
     })
   }, [currentUser, isEditProfilePopupOpen]);
-
-  useEffect(() => {
-
-    if (Object.values(errors).length === 0) {
-      setIsValid(true);
-    } else {
-      setIsValid(false);
-    }
-
-  }, [Object.values(errors).length])
 
   return (
     <PopupWithForm
