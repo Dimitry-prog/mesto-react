@@ -2,21 +2,17 @@ import React, {useEffect, useState} from "react";
 import PopupWithForm from "./PopupWithForm";
 import {useAppContext} from "../context/AppContext";
 import {api} from "../utils/Api";
+import useFormValidation from "../hooks/useFormValidation";
 
 const AddCardPopup = () => {
   const {cards, setCards, handleClosePopups, isAddPlacePopupOpen} = useAppContext();
+  const {values, errors, isValid, setIsValid, handleChange} = useFormValidation();
   const [isLoading, setIsLoading] = useState(false);
-  const [inputValues, setInputValues] = useState({
-    place: '',
-    link: ''
-  });
-  const [isValidForm, setIsValidForm] = useState(false);
-  const [errors, setErrors] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    api.postNewCard(inputValues.place, inputValues.link)
+    api.postNewCard(values.place, values.link)
       .then(newCard => {
         setCards([newCard, ...cards]);
         handleClosePopups();
@@ -28,36 +24,15 @@ const AddCardPopup = () => {
 
   }
 
-  const validation = (inputValue) => {
-    const errorMessage = {};
-    if(!inputValue.place) {
-      errorMessage.place = 'Заполните поле';
-    } else if (inputValue.place.length < 3 || inputValue.place.length > 30) {
-      errorMessage.place = 'Поле должно содержать минимум 3 символа, но не более 30';
-    }
-    if(!inputValue.link) {
-      errorMessage.link = 'Заполните поле';
-    } else if (!inputValue.link.startsWith('https://')) {
-      errorMessage.link = 'Введите ссылку';
-    }
-
-    return errorMessage;
-  }
-
-  const handleChange = (e) => {
-    setInputValues({...inputValues, [e.target.name]: e.target.value});
-  }
-
   useEffect(() => {
 
-    setErrors(validation(inputValues));
-    if (Object.values(errors).length === 0) {
-      setIsValidForm(true);
+     if (Object.values(errors).length === 0) {
+      setIsValid(true);
     } else {
-      setIsValidForm(false);
+      setIsValid(false);
     }
 
-  }, [inputValues, Object.values(errors).length])
+  }, [Object.values(errors).length])
 
   return (
     <PopupWithForm
@@ -66,11 +41,11 @@ const AddCardPopup = () => {
       isOpenPopup={isAddPlacePopupOpen}
       submitText={isLoading ? "Сохрание..." : "Создать"}
       onSubmit={handleSubmit}
-      isValidForm={isValidForm}
+      isValidForm={isValid}
     >
       <label className="form__label">
         <input
-          value={inputValues.place}
+          value={values.place || ''}
           onChange={handleChange}
           type="text"
           className="input form__input form__input_type_place"
@@ -84,7 +59,7 @@ const AddCardPopup = () => {
       </label>
       <label className="form__label">
         <input
-          value={inputValues.link}
+          value={values.link || ''}
           onChange={handleChange}
           type="url"
           className="input form__input form__input_type_link"
