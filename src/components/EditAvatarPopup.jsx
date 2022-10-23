@@ -2,18 +2,17 @@ import React, {useEffect, useRef, useState} from "react";
 import PopupWithForm from "./PopupWithForm";
 import {useAppContext} from "../context/AppContext";
 import {api} from "../utils/Api";
+import useFormValidation from "../hooks/useFormValidation";
 
 const EditAvatarPopup = () => {
   const {setCurrentUser, handleClosePopups, isEditAvatarPopupOpen} = useAppContext();
+  const {values, errors, isValid, setIsValid, handleChange, resetForm} = useFormValidation();
   const [isLoading, setIsLoading] = useState(false);
-  const [isValidForm, setIsValidForm] = useState(false);
-  const [errors, setErrors] = useState({});
-  const [avatar, setAvatar] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    api.patchAvatar(avatar)
+    api.patchAvatar(values.avatar)
       .then(res => {
         setCurrentUser(res);
         handleClosePopups();
@@ -22,35 +21,18 @@ const EditAvatarPopup = () => {
         console.log(e);
       })
       .finally(() => setIsLoading(false));
-
+    resetForm();
   }
-
-  const validation = (inputValue) => {
-    const errorMessage = {};
-    if (!inputValue.length) {
-      errorMessage.avatar = 'Поле не может быть пустым';
-    } else if (!inputValue.startsWith('https://')) {
-      errorMessage.avatar = 'Введите ссылку';
-    }
-
-    return errorMessage;
-  }
-
-  const handleChange = (e) => {
-    setAvatar(e.target.value);
-  }
-
 
   useEffect(() => {
 
-    setErrors(validation(avatar));
     if (Object.values(errors).length === 0) {
-      setIsValidForm(true);
+      setIsValid(true);
     } else {
-      setIsValidForm(false);
+      setIsValid(false);
     }
 
-  }, [avatar, Object.values(errors).length])
+  }, [Object.values(errors).length])
 
   return (
     <PopupWithForm
@@ -59,11 +41,11 @@ const EditAvatarPopup = () => {
       isOpenPopup={isEditAvatarPopupOpen}
       submitText={isLoading ? "Сохрание..." : "Сохранить"}
       onSubmit={handleSubmit}
-      isValidForm={isValidForm}
+      isValidForm={isValid}
     >
       <label className="form__label">
         <input
-          value={avatar}
+          value={values.avatar || ''}
           onChange={handleChange}
           type="url"
           className="input form__input form__input_type_avatar"
