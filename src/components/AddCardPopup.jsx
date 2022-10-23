@@ -19,13 +19,13 @@ const AddCardPopup = () => {
     api.postNewCard(inputValues.place, inputValues.link)
       .then(newCard => {
         setCards([newCard, ...cards]);
+        handleClosePopups();
       })
       .catch(e => {
         console.log(e);
       })
       .finally(() => setIsLoading(false));
 
-    handleClosePopups();
   }
 
   const validation = (inputValue) => {

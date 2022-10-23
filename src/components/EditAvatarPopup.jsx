@@ -16,13 +16,13 @@ const EditAvatarPopup = () => {
     api.patchAvatar(avatar)
       .then(res => {
         setCurrentUser(res);
+        handleClosePopups();
       })
       .catch(e => {
         console.log(e);
       })
       .finally(() => setIsLoading(false));
 
-    handleClosePopups();
   }
 
   const validation = (inputValue) => {

@@ -20,13 +20,12 @@ const EditProfilePopup = () => {
     api.patchProfile(inputValues.name, inputValues.about)
       .then(res => {
         setCurrentUser(res);
+        handleClosePopups();
       })
       .catch(e => {
         console.log(e);
       })
       .finally(() => setIsLoading(false));
-
-    handleClosePopups();
 
   }
 
