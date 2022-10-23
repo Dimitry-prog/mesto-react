@@ -11,22 +11,20 @@ class Api {
     return res.json();
   }
 
+  _request(url, options) {
+    return fetch(url, options).then(this._getResponseData)
+  }
+
   getUsersInfo() {
-    return fetch(this.url + '/users/me', {
-      headers: this._headers,
-    })
-      .then(res => {
-        return this._getResponseData(res);
-      });
+   return this._request(this.url + '/users/me', {
+          headers: this._headers,
+        });
   }
 
   getInitCards() {
-    return fetch(this.url + '/cards', {
+    return this._request(this.url + '/cards', {
       headers: this._headers,
-    })
-      .then(res => {
-        return this._getResponseData(res);
-      });
+    });
   }
 
   getInitialAppState() {
@@ -34,66 +32,51 @@ class Api {
   }
 
   patchProfile(name, about) {
-    return fetch(this.url + '/users/me', {
+    return this._request(this.url + '/users/me', {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
         name,
         about
       }),
-    })
-      .then(res => {
-        return this._getResponseData(res);
-      });
+    });
   }
 
   postNewCard(name, link) {
-    return fetch(this.url + '/cards', {
+    return this._request(this.url + '/cards', {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
         name,
         link
       }),
-    })
-      .then(res => {
-        return this._getResponseData(res);
-      });
+    });
   }
 
   deleteCard(id) {
-    return fetch(`${this.url}/cards/${id}`, {
+    return this._request(`${this.url}/cards/${id}`, {
       method: 'DELETE',
       headers: this._headers,
-    })
-      .then(res => {
-        return this._getResponseData(res);
-      });
+    });
   }
 
   toggleLikeCard(id, method) {
-    return fetch(`${this.url}/cards/${id}/likes`, {
+    return this._request(`${this.url}/cards/${id}/likes`, {
       method: `${method ? 'PUT' : 'DELETE'}`,
       headers: this._headers,
-    })
-      .then(res => {
-        return this._getResponseData(res);
-      });
+    });
   }
 
   patchAvatar(avatar) {
-    return fetch(this.url + '/users/me/avatar', {
+    return this._request(this.url + '/users/me/avatar', {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
         avatar
       }),
-    })
-      .then(res => {
-        return this._getResponseData(res);
-      });
+    });
   }
-
+  
 }
 
 export const api = new Api({
