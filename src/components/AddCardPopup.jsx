@@ -5,24 +5,8 @@ import {api} from "../utils/Api";
 import useFormValidation from "../hooks/useFormValidation";
 
 const AddCardPopup = () => {
-  const {cards, setCards, handleClosePopups, isAddPlacePopupOpen} = useAppContext();
+  const {isAddPlacePopupOpen, isLoading, handleAddCardSubmit} = useAppContext();
   const {values, errors, isValid, handleChange} = useFormValidation();
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    api.postNewCard(values.place, values.link)
-      .then(newCard => {
-        setCards([newCard, ...cards]);
-        handleClosePopups();
-      })
-      .catch(e => {
-        console.log(e);
-      })
-      .finally(() => setIsLoading(false));
-
-  }
 
   return (
     <PopupWithForm
@@ -30,7 +14,7 @@ const AddCardPopup = () => {
       title="Новое место"
       isOpenPopup={isAddPlacePopupOpen}
       submitText={isLoading ? "Сохрание..." : "Создать"}
-      onSubmit={handleSubmit}
+      onSubmit={(e) => handleAddCardSubmit(e, values.place, values.link)}
       isValidForm={isValid}
     >
       <label className="form__label">

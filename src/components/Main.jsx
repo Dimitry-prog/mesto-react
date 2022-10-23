@@ -4,9 +4,9 @@ import {useAppContext} from "../context/AppContext";
 import Loader from "./Loader";
 
 const Main = () => {
-  const {currentUser, cards, handleEditAvatarClick, handleEditProfileClick, handleAddProfileClick, isLoading} = useAppContext();
+  const {currentUser, cards, handleEditAvatarClick, handleEditProfileClick, handleAddProfileClick} = useAppContext();
 
-  if (isLoading) {
+  if (Object.keys(currentUser).length === 0 || !cards.length) {
     return <Loader/>
   }
 

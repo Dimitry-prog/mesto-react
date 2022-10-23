@@ -5,22 +5,7 @@ import {useAppContext} from "../context/AppContext";
 
 
 const ConfirmDeleteCardPopup = () => {
-  const { setCards, selectedCard, handleClosePopups, isDeleteCardPopupOpen } = useAppContext();
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    api.deleteCard(selectedCard.id)
-      .then(card => {
-        setCards(state => state.filter(delCard => delCard._id !== selectedCard.id));
-        handleClosePopups();
-      })
-      .catch(e => {
-        console.log(e);
-      })
-      .finally(() => setIsLoading(false));
-  }
+  const { isDeleteCardPopupOpen, isLoading, handleDeleteCardSubmit } = useAppContext();
 
   return (
     <PopupWithForm
@@ -28,7 +13,7 @@ const ConfirmDeleteCardPopup = () => {
       title="Вы уверены?"
       isOpenPopup={isDeleteCardPopupOpen}
       submitText={isLoading ? "Удаление..." : "Да"}
-      onSubmit={handleSubmit}
+      onSubmit={handleDeleteCardSubmit}
       isValidForm={true}
     />
   );

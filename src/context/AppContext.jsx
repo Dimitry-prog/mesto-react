@@ -38,6 +38,63 @@ const AppProvider = ({children}) => {
     setIsDeleteCardPopupOpen(false);
   }
 
+  const handleDeleteCardSubmit = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    api.deleteCard(selectedCard.id)
+      .then(card => {
+        setCards(state => state.filter(delCard => delCard._id !== selectedCard.id));
+        handleClosePopups();
+      })
+      .catch(e => {
+        console.log(e);
+      })
+      .finally(() => setIsLoading(false));
+  }
+
+  const handleAddCardSubmit = (e, place, link) => {
+    e.preventDefault();
+    setIsLoading(true);
+    api.postNewCard(place, link)
+      .then(newCard => {
+        setCards([newCard, ...cards]);
+        handleClosePopups();
+      })
+      .catch(e => {
+        console.log(e);
+      })
+      .finally(() => setIsLoading(false));
+  }
+
+  const handleEditAvatarSubmit = (e, avatar) => {
+    e.preventDefault();
+    setIsLoading(true);
+    api.patchAvatar(avatar)
+      .then(res => {
+        setCurrentUser(res);
+        handleClosePopups();
+      })
+      .catch(e => {
+        console.log(e);
+      })
+      .finally(() => setIsLoading(false));
+  }
+
+  const handleEditProfileSubmit = (e, name, about) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    api.patchProfile(name, about)
+      .then(res => {
+        setCurrentUser(res);
+        handleClosePopups();
+      })
+      .catch(e => {
+        console.log(e);
+      })
+      .finally(() => setIsLoading(false));
+  }
+
   useEffect(() => {
     setIsLoading(true);
     api.getInitialAppState()
@@ -75,6 +132,10 @@ const AppProvider = ({children}) => {
         handleClosePopups,
         isLoading,
         setIsLoading,
+        handleDeleteCardSubmit,
+        handleAddCardSubmit,
+        handleEditAvatarSubmit,
+        handleEditProfileSubmit
       }}
     >
       {children}

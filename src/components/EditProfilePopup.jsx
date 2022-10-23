@@ -5,24 +5,8 @@ import {api} from "../utils/Api";
 import useFormValidation from "../hooks/useFormValidation";
 
 const EditProfilePopup = () => {
-  const {currentUser, setCurrentUser, handleClosePopups, isEditProfilePopupOpen} = useAppContext();
+  const {currentUser,isEditProfilePopupOpen, isLoading, handleEditProfileSubmit} = useAppContext();
   const {values, errors, isValid, setValues, setIsValid, handleChange} = useFormValidation();
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    api.patchProfile(values.name, values.about)
-      .then(res => {
-        setCurrentUser(res);
-        handleClosePopups();
-      })
-      .catch(e => {
-        console.log(e);
-      })
-      .finally(() => setIsLoading(false));
-  }
 
   useEffect(() => {
     setIsValid(true);
@@ -38,7 +22,7 @@ const EditProfilePopup = () => {
       title="Редактировать профиль"
       isOpenPopup={isEditProfilePopupOpen}
       submitText={isLoading ? "Сохрание..." : "Сохранить"}
-      onSubmit={handleSubmit}
+      onSubmit={(e) => handleEditProfileSubmit(e, values.name, values.about)}
       isValidForm={isValid}
     >
       <label className="form__label">

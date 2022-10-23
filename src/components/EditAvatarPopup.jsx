@@ -5,24 +5,8 @@ import {api} from "../utils/Api";
 import useFormValidation from "../hooks/useFormValidation";
 
 const EditAvatarPopup = () => {
-  const {setCurrentUser, handleClosePopups, isEditAvatarPopupOpen} = useAppContext();
+  const {isEditAvatarPopupOpen, isLoading, handleEditAvatarSubmit} = useAppContext();
   const {values, errors, isValid, handleChange} = useFormValidation();
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    api.patchAvatar(values.avatar)
-      .then(res => {
-        setCurrentUser(res);
-        handleClosePopups();
-      })
-      .catch(e => {
-        console.log(e);
-      })
-      .finally(() => setIsLoading(false));
-
-  }
 
   return (
     <PopupWithForm
@@ -30,7 +14,7 @@ const EditAvatarPopup = () => {
       title="Обновить аватар"
       isOpenPopup={isEditAvatarPopupOpen}
       submitText={isLoading ? "Сохрание..." : "Сохранить"}
-      onSubmit={handleSubmit}
+      onSubmit={(e) => handleEditAvatarSubmit(e, values.avatar)}
       isValidForm={isValid}
     >
       <label className="form__label">
