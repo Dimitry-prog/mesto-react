@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import PopupWithForm from "./PopupWithForm";
 import {useAppContext} from "../context/AppContext";
-import {api} from "../utils/Api";
 import useFormValidation from "../hooks/useFormValidation";
 
 const AddCardPopup = () => {
