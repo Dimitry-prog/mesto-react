@@ -54,7 +54,7 @@ const EditProfilePopup = () => {
       name: currentUser.name,
       about: currentUser.about
     })
-  }, [currentUser]);
+  }, [currentUser, isEditProfilePopupOpen]);
 
   useEffect(() => {
     setErrors(validation(inputValues));
@@ -77,7 +77,7 @@ const EditProfilePopup = () => {
     >
       <label className="form__label">
         <input
-          value={inputValues.name}
+          value={inputValues.name || ''}
           onChange={handleChange}
           type="text"
           className="input form__input form__input_type_name"
@@ -89,7 +89,7 @@ const EditProfilePopup = () => {
       </label>
       <label className="form__label">
         <input
-          value={inputValues.about}
+          value={inputValues.about || ''}
           onChange={handleChange}
           type="text"
           className="input form__input form__input_type_activity"
