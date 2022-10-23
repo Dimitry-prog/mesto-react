@@ -6,7 +6,7 @@ import useFormValidation from "../hooks/useFormValidation";
 
 const EditAvatarPopup = () => {
   const {setCurrentUser, handleClosePopups, isEditAvatarPopupOpen} = useAppContext();
-  const {values, errors, isValid, setIsValid, handleChange, resetForm} = useFormValidation();
+  const {values, errors, isValid, setIsValid, handleChange} = useFormValidation();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e) => {
@@ -21,7 +21,7 @@ const EditAvatarPopup = () => {
         console.log(e);
       })
       .finally(() => setIsLoading(false));
-    resetForm();
+
   }
 
   useEffect(() => {

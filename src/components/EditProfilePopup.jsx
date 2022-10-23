@@ -2,22 +2,18 @@ import React, {useEffect, useState} from "react";
 import PopupWithForm from "./PopupWithForm";
 import {useAppContext} from "../context/AppContext";
 import {api} from "../utils/Api";
+import useFormValidation from "../hooks/useFormValidation";
 
 const EditProfilePopup = () => {
   const {currentUser, setCurrentUser, handleClosePopups, isEditProfilePopupOpen} = useAppContext();
-  const [inputValues, setInputValues] = useState({
-    name: '',
-    about: ''
-  });
-  const [isValidForm, setIsValidForm] = useState(false);
-  const [errors, setErrors] = useState({});
+  const {values, errors, isValid, setIsValid, setValues, handleChange} = useFormValidation();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
 
-    api.patchProfile(inputValues.name, inputValues.about)
+    api.patchProfile(values.name, values.about)
       .then(res => {
         setCurrentUser(res);
         handleClosePopups();
@@ -26,45 +22,24 @@ const EditProfilePopup = () => {
         console.log(e);
       })
       .finally(() => setIsLoading(false));
-
-  }
-
-  const validation = (inputValue) => {
-    const errorMessage = {};
-    if(!inputValue.name) {
-      errorMessage.name = 'Заполните поле'
-    } else if (inputValue.name.length < 3 || inputValue.name.length > 30) {
-      errorMessage.name = 'Поле должно содержать минимум 3 символа, но не более 30'
-    }
-    if(!inputValue.about) {
-      errorMessage.about = 'Заполните поле'
-    } else if (inputValue.about.length < 5 || inputValue.about.length > 60) {
-      errorMessage.about = 'Поле должно содержать минимум 5 символа, но не более 60'
-    }
-
-    return errorMessage;
-  }
-
-  const handleChange = (e) => {
-    setInputValues({...inputValues, [e.target.name]: e.target.value});
   }
 
   useEffect(() => {
-    setInputValues({
+    setValues({
       name: currentUser.name,
       about: currentUser.about
     })
   }, [currentUser, isEditProfilePopupOpen]);
 
   useEffect(() => {
-    setErrors(validation(inputValues));
+
     if (Object.values(errors).length === 0) {
-      setIsValidForm(true);
+      setIsValid(true);
     } else {
-      setIsValidForm(false);
+      setIsValid(false);
     }
 
-  }, [inputValues, Object.values(errors).length])
+  }, [Object.values(errors).length])
 
   return (
     <PopupWithForm
@@ -73,11 +48,11 @@ const EditProfilePopup = () => {
       isOpenPopup={isEditProfilePopupOpen}
       submitText={isLoading ? "Сохрание..." : "Сохранить"}
       onSubmit={handleSubmit}
-      isValidForm={isValidForm}
+      isValidForm={isValid}
     >
       <label className="form__label">
         <input
-          value={inputValues.name || ''}
+          value={values.name || ''}
           onChange={handleChange}
           type="text"
           className="input form__input form__input_type_name"
@@ -89,7 +64,7 @@ const EditProfilePopup = () => {
       </label>
       <label className="form__label">
         <input
-          value={inputValues.about || ''}
+          value={values.about || ''}
           onChange={handleChange}
           type="text"
           className="input form__input form__input_type_activity"
