@@ -1,5 +1,6 @@
 import {createContext, useContext, useEffect, useState} from "react";
 import {api} from "../utils/Api";
+import useFormValidation from "../hooks/useFormValidation";
 
 const AppContext = createContext();
 
@@ -13,6 +14,8 @@ const AppProvider = ({children}) => {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const {resetForm} = useFormValidation();
+  const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
@@ -24,6 +27,7 @@ const AppProvider = ({children}) => {
 
   const handleAddProfileClick = () => {
     setIsAddPlacePopupOpen(true);
+    resetForm();
   }
 
   const handleDeleteCardClick = () => {
@@ -36,6 +40,7 @@ const AppProvider = ({children}) => {
     setIsAddPlacePopupOpen(false);
     setIsImagePopupOpen(false);
     setIsDeleteCardPopupOpen(false);
+    resetForm();
   }
 
   const handleDeleteCardSubmit = (e) => {
@@ -108,6 +113,29 @@ const AppProvider = ({children}) => {
       })
       .finally(() => setIsLoading(false));
   }, []);
+
+  useEffect(() => {
+    const closePopupByEscape = (e) => {
+      if(e.key === 'Escape') {
+        handleClosePopups();
+      }
+    }
+
+    const closePopupByOverlay = (e) => {
+      if (e.target.classList.contains('pop-up_opened') || e.target.classList.contains('pop-up__close')) {
+        handleClosePopups();
+      }
+    }
+
+    if(isOpen) {
+      document.addEventListener('keydown', closePopupByEscape);
+      document.addEventListener('mousedown', closePopupByOverlay);
+      return () => {
+        document.removeEventListener('keydown', closePopupByEscape);
+        document.removeEventListener('mousedown', closePopupByOverlay);
+      }
+    }
+  }, [isOpen]);
 
   return (
     <AppContext.Provider
