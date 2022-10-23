@@ -20,7 +20,7 @@ const PopupWithForm = ({
           className={`button button_type_close-profile pop-up__close`} type="button" aria-label="ClosePopUp"
         >
         </button>
-        <form onSubmit={onSubmit} className="form form_type_profile pop-up__form" name={`pop-up-form-${name}`} noValidate>
+        <form onSubmit={onSubmit} className={`form form_type_${name} pop-up__form`} name={`pop-up-form-${name}`} noValidate>
           <h3 className="form__title">{title}</h3>
           {children}
           <button type="submit" disabled={!isValidForm} className={`button button_type_submit ${!isValidForm ? "button_disabled " : ""}`}>{submitText}</button>
