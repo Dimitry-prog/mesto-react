@@ -2,6 +2,10 @@
 @import url(./vendors/variable.css );
 @import url(./vendors/fonts.css);
 
+/**** ROOT ****/
+
+@import url(./blocks/root/root.css);
+
 /**** PAGE ****/
 
 @import url(./blocks/page/page.css);
