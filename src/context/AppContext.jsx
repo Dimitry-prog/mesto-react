@@ -14,7 +14,6 @@ const AppProvider = ({children}) => {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const {resetForm} = useFormValidation();
   const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard
 
   const handleEditAvatarClick = () => {
@@ -27,7 +26,6 @@ const AppProvider = ({children}) => {
 
   const handleAddProfileClick = () => {
     setIsAddPlacePopupOpen(true);
-    resetForm();
   }
 
   const handleDeleteCardClick = () => {
@@ -40,7 +38,6 @@ const AppProvider = ({children}) => {
     setIsAddPlacePopupOpen(false);
     setIsImagePopupOpen(false);
     setIsDeleteCardPopupOpen(false);
-    resetForm();
   }
 
   const handleDeleteCardSubmit = (e) => {

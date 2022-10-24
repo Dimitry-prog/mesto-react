@@ -1,11 +1,15 @@
-import React from "react";
+import React, {useEffect} from "react";
 import PopupWithForm from "./PopupWithForm";
 import {useAppContext} from "../context/AppContext";
 import useFormValidation from "../hooks/useFormValidation";
 
 const AddCardPopup = () => {
   const {isAddPlacePopupOpen, isLoading, handleAddCardSubmit} = useAppContext();
-  const {values, errors, isValid, handleChange} = useFormValidation();
+  const {values, errors, isValid, handleChange, resetForm} = useFormValidation();
+
+  useEffect(() => {
+    resetForm();
+  }, [isAddPlacePopupOpen]);
 
   return (
     <PopupWithForm

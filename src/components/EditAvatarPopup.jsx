@@ -1,11 +1,15 @@
-import React from "react";
+import React, {useEffect} from "react";
 import PopupWithForm from "./PopupWithForm";
 import {useAppContext} from "../context/AppContext";
 import useFormValidation from "../hooks/useFormValidation";
 
 const EditAvatarPopup = () => {
   const {isEditAvatarPopupOpen, isLoading, handleEditAvatarSubmit} = useAppContext();
-  const {values, errors, isValid, handleChange} = useFormValidation();
+  const {values, errors, isValid, handleChange, resetForm} = useFormValidation();
+
+  useEffect(() => {
+    resetForm();
+  }, [isEditAvatarPopupOpen]);
 
   return (
     <PopupWithForm
